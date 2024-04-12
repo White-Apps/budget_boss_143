@@ -1,9 +1,8 @@
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class YourIncome extends StatefulWidget {
@@ -24,21 +23,23 @@ class _YourIncomeState extends State<YourIncome> {
   String input = '0';
 
   void _handleKeyPress(String key) {
-    setState(() {
-      if (key == '⌫') {
-        if (input.length > 1) {
-          input = input.substring(0, input.length - 1);
+    setState(
+      () {
+        if (key == '⌫') {
+          if (input.length > 1) {
+            input = input.substring(0, input.length - 1);
+          } else {
+            input = '0';
+          }
         } else {
-          input = '0';
+          if (input == '0') {
+            input = key;
+          } else {
+            input += key;
+          }
         }
-      } else {
-        if (input == '0') {
-          input = key;
-        } else {
-          input += key;
-        }
-      }
-    });
+      },
+    );
   }
 
   Widget _buildButton(String title) {
@@ -134,16 +135,66 @@ class _YourIncomeState extends State<YourIncome> {
                           row.map((title) => _buildButton(title)).toList(),
                     ),
                   SizedBox(height: 24.h),
-                  BbMotion(
-                    onPressed: () async {
-                      double res = double.tryParse(input) ?? 0;
-                      await setIncome(res);
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      height: 20,
-                      width: 100,
-                      color: Colors.red,
+                  Container(
+                    // height: 56,
+                    margin: EdgeInsets.symmetric(horizontal: 24.r),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xffD688F8),
+                          Color(0xff14A0FF),
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                    ),
+
+                    child: SwipeButton(
+                      height: 64.h,
+                      borderRadius: BorderRadius.circular(32.r),
+                      activeTrackColor: Colors.transparent,
+                      activeThumbColor: Colors.transparent,
+                      thumbPadding: EdgeInsets.all(4.sp),
+                      // enabled:false,
+                      thumb: IntrinsicWidth(
+                        child: Container(
+                          width: 120.w,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 12.r,
+                            horizontal: 16.r,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32.r),
+                            color: BBColors.white.withOpacity(0.6),
+                          ),
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Add income',
+                                style: TextStyle(
+                                  fontSize: 14.h,
+                                  fontWeight: FontWeight.w500,
+                                  color: BBColors.black.withOpacity(0.5),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 12.r),
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Image.asset('assets/images/nnew.png',
+                                width: 64.w)),
+                      ),
+                      onSwipe: () async {
+                        double res = double.tryParse(input) ?? 0;
+                        await setIncome(res);
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
                   SizedBox(height: 24.h),

@@ -1,4 +1,6 @@
 import 'package:budget_boss_143/core/bb_colors.dart';
+import 'package:budget_boss_143/core/bb_motion.dart';
+import 'package:budget_boss_143/settings/prem_scre_buuger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,7 +21,184 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.r),
-        child: const Column(),
+        child: Column(
+          children: [
+            SizedBox(height: 24.h),
+            BbMotion(
+              onPressed: () {},
+              child: Container(
+                width: double.infinity,
+                height: 60.h,
+                padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 24.r),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Color(0xffD688F8),
+                    Color(0xff14A0FF),
+                  ]),
+                  borderRadius: BorderRadius.circular(50.r),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Privacy Policy',
+                      style: TextStyle(
+                        color: BBColors.white,
+                        fontSize: 18.h,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Image.asset(
+                      'assets/images/nneref.png',
+                      width: 24.w,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 16.h),
+            BbMotion(
+              onPressed: () {},
+              child: Container(
+                width: double.infinity,
+                height: 60.h,
+                padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 24.r),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Color(0xffD688F8),
+                    Color(0xff14A0FF),
+                  ]),
+                  borderRadius: BorderRadius.circular(50.r),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Terms of Use',
+                      style: TextStyle(
+                        color: BBColors.white,
+                        fontSize: 18.h,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Image.asset(
+                      'assets/images/nneref.png',
+                      width: 24.w,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 16.h),
+            BbMotion(
+              onPressed: () {},
+              child: Container(
+                width: double.infinity,
+                height: 60.h,
+                padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 24.r),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Color(0xffD688F8),
+                    Color(0xff14A0FF),
+                  ]),
+                  borderRadius: BorderRadius.circular(50.r),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Support',
+                      style: TextStyle(
+                        color: BBColors.white,
+                        fontSize: 18.h,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Image.asset(
+                      'assets/images/nneref.png',
+                      width: 24.w,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 16.h),
+            BbMotion(
+              onPressed: () {},
+              child: Container(
+                width: double.infinity,
+                height: 60.h,
+                padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 24.r),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Color(0xffD688F8),
+                    Color(0xff14A0FF),
+                  ]),
+                  borderRadius: BorderRadius.circular(50.r),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Share App',
+                      style: TextStyle(
+                        color: BBColors.white,
+                        fontSize: 18.h,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Image.asset(
+                      'assets/images/nneref.png',
+                      width: 24.w,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 16.h),
+            BbMotion(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PremiumTiScreenBudgett(
+                      isClose: true,
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                height: 60.h,
+                padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 24.r),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Color(0xffD688F8),
+                    Color(0xff14A0FF),
+                  ]),
+                  borderRadius: BorderRadius.circular(50.r),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Buy Premium for \$0.99',
+                      style: TextStyle(
+                        color: BBColors.white,
+                        fontSize: 18.h,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Image.asset(
+                      'assets/images/nneref.png',
+                      width: 24.w,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

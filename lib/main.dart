@@ -1,5 +1,5 @@
 import 'package:budget_boss_143/core/bb_colors.dart';
-import 'package:budget_boss_143/core/bb_splash.dart';
+import 'package:budget_boss_143/onbording/spl_scr_buudget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,7 +19,7 @@ class BBApp extends StatelessWidget {
       builder: (_, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Budget Boss',
-        home: const SplashScreen(),
+        home: const SplashScreenBuudget(),
         theme: ThemeData(
           fontFamily: 'SFProDisplay',
           splashColor: Colors.transparent,

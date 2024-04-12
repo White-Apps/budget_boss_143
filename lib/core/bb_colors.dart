@@ -5,4 +5,12 @@ abstract class BBColors {
   static const Color black = Color(0xff000000);
   static const Color green = Color(0xff00C844);
   static const Color red = Color(0xffFF0000);
+  static const Color grey3E3F41 = Color(0xff3E3F41);
+
+  static const Color ccc1 = Color(0xff1780F5);
+  static const Color ccc2 = Color(0xffD688F8);
+  static const Color ccc3 = Color(0xffFFB800);
+  static const Color ccc4 = Color(0xff00C844);
+  static const Color ccc5 = Color(0xffFF0000);
+  static const Color ccc6 = Color(0xff999999);
 }

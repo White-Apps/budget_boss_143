@@ -7,20 +7,16 @@ class FinancesHiveModel extends HiveObject {
   @HiveField(0)
   int id;
   @HiveField(1)
-  String title;
+  String category;
   @HiveField(2)
   double sum;
   @HiveField(3)
-  DateTime date;
+  int color;
 
   FinancesHiveModel({
     required this.id,
-    required this.title,
+    required this.category,
     required this.sum,
-    required this.date,
+    required this.color,
   });
-  @override
-  String toString() {
-    return '$id, $title, $date';
-  }
 }

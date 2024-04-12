@@ -18,9 +18,9 @@ class FinancesHiveModelAdapter extends TypeAdapter<FinancesHiveModel> {
     };
     return FinancesHiveModel(
       id: fields[0] as int,
-      title: fields[1] as String,
+      category: fields[1] as String,
       sum: fields[2] as double,
-      date: fields[3] as DateTime,
+      color: fields[3] as int,
     );
   }
 
@@ -31,11 +31,11 @@ class FinancesHiveModelAdapter extends TypeAdapter<FinancesHiveModel> {
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.title)
+      ..write(obj.category)
       ..writeByte(2)
       ..write(obj.sum)
       ..writeByte(3)
-      ..write(obj.date);
+      ..write(obj.color);
   }
 
   @override

@@ -1,6 +1,11 @@
+import 'package:budget_boss_143/core/bb_bar_down.dart';
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
+import 'package:budget_boss_143/finances/logic/cubits/set_finances_cubit/set_finances_cubit.dart';
+import 'package:budget_boss_143/finances/logic/models/finances_model.dart';
+import 'package:budget_boss_143/finances/logic/repositories/finances_repo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExpenseTwo extends StatefulWidget {
@@ -142,16 +147,64 @@ class _ExpenseTwoState extends State<ExpenseTwo> {
                           row.map((title) => _buildButton(title)).toList(),
                     ),
                   SizedBox(height: 24.h),
-                  BbMotion(
-                    onPressed: () async {
-                      // double res = double.tryParse(input) ?? 0;
-                      // await setIncome(res);
-                      // Navigator.pop(context);
-                    },
-                    child: Container(
-                      height: 20,
-                      width: 100,
-                      color: Colors.red,
+                  BlocProvider(
+                    create: (context) => SetFinancesCubit(FinancesRepoImpl()),
+                    child: BlocConsumer<SetFinancesCubit, SetFinancesState>(
+                      listener: (context, state) {
+                        if (state is Success) {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) =>
+                                  const BbBarDown(indexScr: 0),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                const begin = Offset(-1.0, 0.0);
+                                const end = Offset.zero;
+                                const curve = Curves.easeInOut;
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
+                                var offsetAnimation = animation.drive(tween);
+                                return SlideTransition(
+                                    position: offsetAnimation, child: child);
+                              },
+                            ),
+                            (route) => false,
+                          );
+                        } else if (state is Error) {
+                          final errorMessage = state.error;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Error: $errorMessage')),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is Loading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        return BbMotion(
+                          onPressed: () async {
+                            if (input != '0') {
+                              FinancesHiveModel financesHiveModel =
+                                  FinancesHiveModel(
+                                id: DateTime.now().millisecondsSinceEpoch,
+                                category: widget.title,
+                                sum: double.tryParse(input) ?? 0,
+                                color: widget.color.value,
+                              );
+                              context
+                                  .read<SetFinancesCubit>()
+                                  .setFinances(financesHiveModel);
+                            }
+                          },
+                          child: Container(
+                            height: 20,
+                            width: 100,
+                            color: Colors.red,
+                          ),
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: 24.h),

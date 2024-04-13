@@ -19,9 +19,9 @@ class GoalHiveModelAdapter extends TypeAdapter<GoalHiveModel> {
     return GoalHiveModel(
       id: fields[0] as int,
       image: fields[1] as String,
-      isHistory: fields[2] as bool,
-      target: fields[3] as double,
-      amaunt: fields[4] as double,
+      target: fields[2] as int,
+      amaunt: fields[3] as int,
+      date: fields[4] as String,
     );
   }
 
@@ -34,11 +34,11 @@ class GoalHiveModelAdapter extends TypeAdapter<GoalHiveModel> {
       ..writeByte(1)
       ..write(obj.image)
       ..writeByte(2)
-      ..write(obj.isHistory)
-      ..writeByte(3)
       ..write(obj.target)
+      ..writeByte(3)
+      ..write(obj.amaunt)
       ..writeByte(4)
-      ..write(obj.amaunt);
+      ..write(obj.date);
   }
 
   @override

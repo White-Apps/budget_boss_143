@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 abstract class GoalRepo {
   Future<List<GoalHiveModel>> getGoal();
   Future<void> setGoal(GoalHiveModel goalHiveModel);
-  Future<void> updateGoal(int id, bool isActive);
+  Future<void> updateGoal(int id, int amaunt);
 }
 
 class GoalRepoImpl implements GoalRepo {
@@ -21,11 +21,11 @@ class GoalRepoImpl implements GoalRepo {
   }
 
   @override
-  Future<void> updateGoal(int id, bool isHistory) async {
+  Future<void> updateGoal(int id, int amaunt) async {
     final goalList = await Hive.openBox<GoalHiveModel>('GoalList');
     List<GoalHiveModel> goalUp =
         goalList.values.where((e) => e.id == id).toList();
-    goalUp.first.isHistory = isHistory;
+    goalUp.first.amaunt = amaunt;
     await goalUp.first.save();
   }
 }

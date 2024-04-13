@@ -1,11 +1,16 @@
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
+import 'package:budget_boss_143/goal/logic/model/goal_hive_model.dart';
+import 'package:budget_boss_143/goal/logic/repo/goal_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_swipe_button/flutter_swipe_button.dart';
+import 'package:intl/intl.dart';
 
 class GlWidget extends StatefulWidget {
-  const GlWidget({super.key, required this.image});
+  const GlWidget({super.key, required this.image, required this.setstt});
   final String image;
+  final ValueChanged setstt;
 
   @override
   State<GlWidget> createState() => _GlWidgetState();
@@ -133,6 +138,78 @@ class _GlWidgetState extends State<GlWidget> {
                           children:
                               row.map((title) => _buildButton(title)).toList(),
                         ),
+                      SizedBox(height: 16.h),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(32),
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xffD688F8),
+                              Color(0xff14A0FF),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                        ),
+                        child: SwipeButton(
+                          height: 64.h,
+                          borderRadius: BorderRadius.circular(32.r),
+                          activeTrackColor: Colors.transparent,
+                          activeThumbColor: Colors.transparent,
+                          thumbPadding: EdgeInsets.all(4.sp),
+                          // enabled:false,
+                          thumb: IntrinsicWidth(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 12.r,
+                                horizontal: 16.r,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(32.r),
+                                color: BBColors.white.withOpacity(0.6),
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    'Save',
+                                    style: TextStyle(
+                                      fontSize: 14.h,
+                                      fontWeight: FontWeight.w500,
+                                      color: BBColors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 12.r),
+                            child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Image.asset('assets/images/nnew.png',
+                                    width: 64.w)),
+                          ),
+                          onSwipe: () async {
+                            int res = int.tryParse(input) ?? 0;
+                            if (res != 0) {
+                              GoalHiveModel todoHiveModel = GoalHiveModel(
+                                id: DateTime.now().millisecondsSinceEpoch,
+                                image: widget.image,
+                                target: res,
+                                amaunt: 0,
+                                date: DateFormat('d.M.yyyy')
+                                    .format(DateTime.now()),
+                              );
+                              await GoalRepoImpl().setGoal(todoHiveModel);
+                              widget.setstt;
+                              Navigator.pop(context);
+                            } else {
+                              // Navigator.pop(context);
+                            }
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 );

@@ -9,16 +9,16 @@ class GoalHiveModel extends HiveObject {
   @HiveField(1)
   String image;
   @HiveField(2)
-  bool isHistory;
+  int target;
   @HiveField(3)
-  double target;
+  int amaunt;
   @HiveField(4)
-  double amaunt;
+  String date;
   GoalHiveModel({
     required this.id,
     required this.image,
-    required this.isHistory,
     required this.target,
     required this.amaunt,
+    required this.date,
   });
 }

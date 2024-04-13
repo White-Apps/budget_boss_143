@@ -2,6 +2,7 @@ import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/finances/logic/cubits/get_finances_cubit/get_finances_cubit.dart';
 import 'package:budget_boss_143/finances/logic/models/finances_model.dart';
 import 'package:budget_boss_143/finances/logic/repositories/finances_repo.dart';
+import 'package:budget_boss_143/goal/logic/model/goal_hive_model.dart';
 import 'package:budget_boss_143/onbording/spl_scr_buudget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(FinancesHiveModelAdapter());
+  Hive.registerAdapter(GoalHiveModelAdapter());
   runApp(const BBApp());
 }
 

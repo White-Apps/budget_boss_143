@@ -4,6 +4,7 @@ import 'package:budget_boss_143/core/bb_motion.dart';
 import 'package:budget_boss_143/finances/logic/cubits/set_finances_cubit/set_finances_cubit.dart';
 import 'package:budget_boss_143/finances/logic/models/finances_model.dart';
 import 'package:budget_boss_143/finances/logic/repositories/finances_repo.dart';
+import 'package:budget_boss_143/finances/screens/your_income.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,13 +20,27 @@ class ExpenseTwo extends StatefulWidget {
 
 class _ExpenseTwoState extends State<ExpenseTwo> {
   TextEditingController controller = TextEditingController();
+  double iood = 0;
+  @override
+  void initState() {
+    dfvdfvb();
+    super.initState();
+  }
   @override
   void dispose() {
     controller.dispose();
+
     super.dispose();
   }
 
   String input = '0';
+
+  Future<void> dfvdfvb() async {
+    double ioodawait = await getIncome();
+    setState(() {
+      iood = ioodawait;
+    });
+  }
 
   void _handleKeyPress(String key) {
     setState(() {
@@ -239,17 +254,20 @@ class _ExpenseTwoState extends State<ExpenseTwo> {
                             ),
                             onSwipe: () async {
                               if (input != '0') {
+                                double inputDoub = double.tryParse(input) ?? 0;
                                 FinancesHiveModel financesHiveModel =
                                     FinancesHiveModel(
                                   id: DateTime.now().millisecondsSinceEpoch,
                                   category: widget.title,
-                                  sum: double.tryParse(input) ?? 0,
+                                  sum: inputDoub,
                                   color: widget.color.value,
-                                   data: DateTime.now(),
+                                  data: DateTime.now(),
                                 );
                                 context
                                     .read<SetFinancesCubit>()
                                     .setFinances(financesHiveModel);
+                                iood = iood < inputDoub ? 0 : iood - inputDoub;
+                                await setIncome(iood);
                               }
                             },
                           ),

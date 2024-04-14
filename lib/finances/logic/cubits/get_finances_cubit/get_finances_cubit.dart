@@ -29,7 +29,7 @@ class GetFinancesCubit extends Cubit<GetFinancesState> {
     emit(const Loading());
     try {
       final financesList = await repo.getFinances();
-      emit(Success(financesList));
+      emit(Success(financesList.reversed.toList()));
     } catch (e) {
       emit(Error(e.toString()));
     }

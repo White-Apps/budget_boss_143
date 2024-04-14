@@ -9,8 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ShowModalBot extends StatefulWidget {
   const ShowModalBot({
     super.key,
+    required this.trtr,
   });
-
+  final ValueChanged trtr;
   @override
   State<ShowModalBot> createState() => _ShowModalBotState();
 }
@@ -221,7 +222,7 @@ class _ShowModalBotState extends State<ShowModalBot> {
                     } else {
                       await setTimeR(30);
                     }
-
+                    widget.trtr('');
                     Navigator.pop(context);
                   }
                 },

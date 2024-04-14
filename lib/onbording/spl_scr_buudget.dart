@@ -1,5 +1,4 @@
 import 'package:budget_boss_143/core/bb_bar_down.dart';
-import 'package:budget_boss_143/onbording/onbor_budget_boss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -47,7 +46,11 @@ class _SplashScreenBuudgetState extends State<SplashScreenBuudget> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const TiOnbordingBudgetBoss(),
+              builder: (context) => const 
+              // TiOnbordingBudgetBoss(),
+              BbBarDown(
+                  indexScr: 0,
+                ),
             ),
           );
           prefs.setDouble('njjjdkvsdsd', 71836254);
@@ -65,10 +68,11 @@ class _SplashScreenBuudgetState extends State<SplashScreenBuudget> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => const TiOnbordingBudgetBoss()
-                //BbBarDown(
-                //   indexScr: 0,
-                // ),
+                builder: (context) => const 
+                // TiOnbordingBudgetBoss()
+                BbBarDown(
+                  indexScr: 0,
+                ),
                 ),
           );
         }

@@ -12,11 +12,14 @@ class FinancesHiveModel extends HiveObject {
   double sum;
   @HiveField(3)
   int color;
+  @HiveField(4)
+  DateTime data;
 
   FinancesHiveModel({
     required this.id,
     required this.category,
     required this.sum,
     required this.color,
+    required this.data,
   });
 }

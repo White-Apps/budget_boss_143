@@ -21,13 +21,14 @@ class FinancesHiveModelAdapter extends TypeAdapter<FinancesHiveModel> {
       category: fields[1] as String,
       sum: fields[2] as double,
       color: fields[3] as int,
+      data: fields[4] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, FinancesHiveModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class FinancesHiveModelAdapter extends TypeAdapter<FinancesHiveModel> {
       ..writeByte(2)
       ..write(obj.sum)
       ..writeByte(3)
-      ..write(obj.color);
+      ..write(obj.color)
+      ..writeByte(4)
+      ..write(obj.data);
   }
 
   @override

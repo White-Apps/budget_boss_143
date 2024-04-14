@@ -3,6 +3,7 @@ import 'package:budget_boss_143/core/bb_motion.dart';
 import 'package:budget_boss_143/finances/screens/expense_two.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
 class Expense extends StatefulWidget {
@@ -251,7 +252,7 @@ class _ExpenseState extends State<Expense> {
                     borderRadius: BorderRadius.circular(40.r)),
                 child: Center(
                   child: Text(
-                    '1Other',
+                    'Other',
                     style: TextStyle(
                       fontSize: 16.h,
                       fontWeight: FontWeight.w500,
@@ -419,22 +420,71 @@ class _ExpenseState extends State<Expense> {
               ],
             ),
             SizedBox(height: 38.h),
-            BbMotion(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ExpenseTwo(
-                      title: title,
-                      color: color,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xffD688F8),
+                    Color(0xff14A0FF),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+              ),
+              child: SwipeButton(
+                height: 64.h,
+                borderRadius: BorderRadius.circular(28.r),
+                activeTrackColor: Colors.transparent,
+                activeThumbColor: Colors.transparent,
+                thumbPadding: EdgeInsets.all(4.sp),
+                enabled: title != '' ? true : false,
+                thumb: IntrinsicWidth(
+                  child: Container(
+                    width: 120.w,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 12.r,
+                      horizontal: 16.r,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32.r),
+                      color: BBColors.white,
+                    ),
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'Next',
+                          style: TextStyle(
+                            fontSize: 14.h,
+                            fontWeight: FontWeight.w500,
+                            color: BBColors.black,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                );
-              },
-              child: Container(
-                height: 20,
-                width: 100,
-                color: Colors.red,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 12.r),
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child:
+                          Image.asset('assets/images/nnew.png', width: 64.w)),
+                ),
+                onSwipe: () async {
+                  if (title != '') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ExpenseTwo(
+                          title: title,
+                          color: color,
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
             SizedBox(height: 24.h),

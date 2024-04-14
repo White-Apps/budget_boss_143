@@ -7,6 +7,7 @@ import 'package:budget_boss_143/finances/logic/repositories/finances_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 
 class ExpenseTwo extends StatefulWidget {
   const ExpenseTwo({super.key, required this.title, required this.color});
@@ -183,25 +184,74 @@ class _ExpenseTwoState extends State<ExpenseTwo> {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
-                        return BbMotion(
-                          onPressed: () async {
-                            if (input != '0') {
-                              FinancesHiveModel financesHiveModel =
-                                  FinancesHiveModel(
-                                id: DateTime.now().millisecondsSinceEpoch,
-                                category: widget.title,
-                                sum: double.tryParse(input) ?? 0,
-                                color: widget.color.value,
-                              );
-                              context
-                                  .read<SetFinancesCubit>()
-                                  .setFinances(financesHiveModel);
-                            }
-                          },
-                          child: Container(
-                            height: 20,
-                            width: 100,
-                            color: Colors.red,
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 24.r),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color(0xffD688F8),
+                                Color(0xff14A0FF),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                          ),
+                          child: SwipeButton(
+                            height: 64.h,
+                            borderRadius: BorderRadius.circular(28.r),
+                            activeTrackColor: Colors.transparent,
+                            activeThumbColor: Colors.transparent,
+                            thumbPadding: EdgeInsets.all(4.sp),
+                            enabled: input != '0' ? true : false,
+                            thumb: IntrinsicWidth(
+                              child: Container(
+                                width: 120.w,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 12.r,
+                                  horizontal: 16.r,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(32.r),
+                                  color: BBColors.white,
+                                ),
+                                child: Center(
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      'Save',
+                                      style: TextStyle(
+                                        fontSize: 14.h,
+                                        fontWeight: FontWeight.w500,
+                                        color: BBColors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 12.r),
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Image.asset('assets/images/nnew.png',
+                                      width: 64.w)),
+                            ),
+                            onSwipe: () async {
+                              if (input != '0') {
+                                FinancesHiveModel financesHiveModel =
+                                    FinancesHiveModel(
+                                  id: DateTime.now().millisecondsSinceEpoch,
+                                  category: widget.title,
+                                  sum: double.tryParse(input) ?? 0,
+                                  color: widget.color.value,
+                                   data: DateTime.now(),
+                                );
+                                context
+                                    .read<SetFinancesCubit>()
+                                    .setFinances(financesHiveModel);
+                              }
+                            },
                           ),
                         );
                       },

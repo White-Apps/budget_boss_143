@@ -2,6 +2,7 @@ import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -159,22 +160,71 @@ class _ShowModalBotState extends State<ShowModalBot> {
               ),
             ),
             SizedBox(height: 24.h),
-            BbMotion(
-              onPressed: () async {
-                if (title == '1 day') {
-                  await setTimeR(1);
-                } else if (title == '7 days') {
-                  await setTimeR(7);
-                } else {
-                  await setTimeR(30);
-                }
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xffD688F8),
+                    Color(0xff14A0FF),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+              ),
+              child: SwipeButton(
+                height: 64.h,
+                borderRadius: BorderRadius.circular(28.r),
+                activeTrackColor: Colors.transparent,
+                activeThumbColor: Colors.transparent,
+                thumbPadding: EdgeInsets.all(4.sp),
+                enabled: title != '' ? true : false,
+                thumb: IntrinsicWidth(
+                  child: Container(
+                    width: 120.w,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 12.r,
+                      horizontal: 16.r,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32.r),
+                      color: BBColors.white,
+                    ),
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                            fontSize: 14.h,
+                            fontWeight: FontWeight.w500,
+                            color: BBColors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 12.r),
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child:
+                          Image.asset('assets/images/nnew.png', width: 64.w)),
+                ),
+                onSwipe: () async {
+                  if (title != '') {
+                    if (title == '1 day') {
+                      await setTimeR(1);
+                    } else if (title == '7 days') {
+                      await setTimeR(7);
+                    } else {
+                      await setTimeR(30);
+                    }
 
-                Navigator.pop(context);
-              },
-              child: Container(
-                height: 20,
-                width: 100,
-                color: Colors.red,
+                    Navigator.pop(context);
+                  }
+                },
               ),
             ),
             SizedBox(height: 38.h),

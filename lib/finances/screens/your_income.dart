@@ -1,6 +1,11 @@
+import 'package:budget_boss_143/core/bb_bar_down.dart';
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
+import 'package:budget_boss_143/finances/logic/cubits/set_finances_cubit/set_finances_cubit.dart';
+import 'package:budget_boss_143/finances/logic/models/finances_model.dart';
+import 'package:budget_boss_143/finances/logic/repositories/finances_repo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -136,7 +141,6 @@ class _YourIncomeState extends State<YourIncome> {
                     ),
                   SizedBox(height: 24.h),
                   Container(
-                    // height: 56,
                     margin: EdgeInsets.symmetric(horizontal: 24.r),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(32),
@@ -149,52 +153,80 @@ class _YourIncomeState extends State<YourIncome> {
                         end: Alignment.centerRight,
                       ),
                     ),
-
-                    child: SwipeButton(
-                      height: 64.h,
-                      borderRadius: BorderRadius.circular(32.r),
-                      activeTrackColor: Colors.transparent,
-                      activeThumbColor: Colors.transparent,
-                      thumbPadding: EdgeInsets.all(4.sp),
-                      // enabled:false,
-                      thumb: IntrinsicWidth(
-                        child: Container(
-                          width: 120.w,
-                          padding: EdgeInsets.symmetric(
-                            vertical: 12.r,
-                            horizontal: 16.r,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(32.r),
-                            color: BBColors.white.withOpacity(0.6),
-                          ),
-                          child: Center(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                'Add income',
-                                style: TextStyle(
-                                  fontSize: 14.h,
-                                  fontWeight: FontWeight.w500,
-                                  color: BBColors.black.withOpacity(0.5),
+                    child: BlocProvider(
+                      create: (context) => SetFinancesCubit(FinancesRepoImpl()),
+                      child: BlocConsumer<SetFinancesCubit, SetFinancesState>(
+                        listener: (context, state) {
+                          if (state is Success) {
+                            Navigator.pop(context);
+                          } else if (state is Error) {
+                            final errorMessage = state.error;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error: $errorMessage')),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          return SwipeButton(
+                            height: 64.h,
+                            borderRadius: BorderRadius.circular(28.r),
+                            activeTrackColor: Colors.transparent,
+                            activeThumbColor: Colors.transparent,
+                            thumbPadding: EdgeInsets.all(4.sp),
+                            enabled: input != '0' ? true : false,
+                            thumb: IntrinsicWidth(
+                              child: Container(
+                                width: 120.w,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 12.r,
+                                  horizontal: 16.r,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(32.r),
+                                  color: BBColors.white.withOpacity(0.6),
+                                ),
+                                child: Center(
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      'Add',
+                                      style: TextStyle(
+                                        fontSize: 14.h,
+                                        fontWeight: FontWeight.w500,
+                                        color: BBColors.black.withOpacity(0.5),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 12.r),
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Image.asset('assets/images/nnew.png',
+                                      width: 64.w)),
+                            ),
+                            onSwipe: () async {
+                              if (input != '0') {
+                                double res = double.tryParse(input) ?? 0;
+                                FinancesHiveModel financesHiveModel =
+                                    FinancesHiveModel(
+                                  id: DateTime.now().millisecondsSinceEpoch,
+                                  category: 'Your income',
+                                  sum: double.tryParse(input) ?? 0,
+                                  color: Colors.transparent.value,
+                                  data: DateTime.now(),
+                                );
+                                context
+                                    .read<SetFinancesCubit>()
+                                    .setFinances(financesHiveModel);
+                                await setIncome(res);
+                              }
+                            },
+                          );
+                        },
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 12.r),
-                        child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Image.asset('assets/images/nnew.png',
-                                width: 64.w)),
-                      ),
-                      onSwipe: () async {
-                        double res = double.tryParse(input) ?? 0;
-                        await setIncome(res);
-                        Navigator.pop(context);
-                      },
                     ),
                   ),
                   SizedBox(height: 24.h),

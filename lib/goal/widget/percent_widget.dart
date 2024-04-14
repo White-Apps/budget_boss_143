@@ -15,6 +15,7 @@ class PercentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // GoalRepoImpl().updateGoal(model.id, model.amaunt + 50);
         Container(
           padding: EdgeInsets.all(20.r),
           width: MediaQuery.of(context).size.width,
@@ -80,6 +81,7 @@ class PercentWidget extends StatelessWidget {
             ],
           ),
         ),
+
         Positioned(
           top: 12.h,
           right: 12.w,

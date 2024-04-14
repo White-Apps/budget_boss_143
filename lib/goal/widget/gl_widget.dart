@@ -96,11 +96,6 @@ class _GlWidgetState extends State<GlWidget> {
                           color: BBColors.white,
                         ),
                       ),
-                      // const BBField(
-                      //   hintText: '\',
-                      //   maxLine: 1,
-                      //   borderColor: Color(0xff3E3F41),
-                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -202,10 +197,8 @@ class _GlWidgetState extends State<GlWidget> {
                                     .format(DateTime.now()),
                               );
                               await GoalRepoImpl().setGoal(todoHiveModel);
-                              widget.setstt;
                               Navigator.pop(context);
-                            } else {
-                              // Navigator.pop(context);
+                              widget.setstt('');
                             }
                           },
                         ),

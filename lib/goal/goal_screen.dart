@@ -95,8 +95,8 @@ class _GoalScreenState extends State<GoalScreen> {
                 ),
                 itemBuilder: (context, index) => GlWidget(
                   image: listImages[index],
-                  setstt: (value) {
-                    getData();
+                  setstt: (value) async {
+                    await getData();
                   },
                 ),
                 itemCount: listImages.length,

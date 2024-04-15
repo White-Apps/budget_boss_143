@@ -2,16 +2,23 @@ import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
 import 'package:budget_boss_143/goal/logic/model/goal_hive_model.dart';
 import 'package:budget_boss_143/goal/logic/repo/goal_repo.dart';
+import 'package:budget_boss_143/settings/prem_scre_buuger.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:intl/intl.dart';
 
 class GlWidget extends StatefulWidget {
-  const GlWidget({super.key, required this.image, required this.setstt});
+  const GlWidget(
+      {super.key,
+      required this.image,
+      required this.setstt,
+      required this.chek});
   final String image;
   final ValueChanged setstt;
-
+  final bool chek;
   @override
   State<GlWidget> createState() => _GlWidgetState();
 }
@@ -21,34 +28,72 @@ class _GlWidgetState extends State<GlWidget> {
   Widget build(BuildContext context) {
     return BbMotion(
       onPressed: () {
-        showModalBottomSheet<void>(
-          isScrollControlled: true,
-          context: context,
-          builder: (BuildContext context) {
-            return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-                return GlShowContainer(
-                  image: widget.image,
-                  setstt: (value) {
-                    widget.setstt('');
-                  },
-                );
-              },
-            );
-          },
-        );
+        if (widget.chek == false) {
+          showModalBottomSheet<void>(
+            isScrollControlled: true,
+            context: context,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+                  return GlShowContainer(
+                    image: widget.image,
+                    setstt: (value) {
+                      widget.setstt('');
+                    },
+                  );
+                },
+              );
+            },
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const PremiumTiScreenBudgett(
+                isClose: true,
+              ),
+            ),
+          );
+        }
       },
-      child: Container(
-        padding: EdgeInsets.all(20.r),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Image.asset(
-          widget.image,
-          width: 56.w,
-        ),
-      ),
+      child: widget.chek
+          ? Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.r),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Opacity(
+                    opacity: 0.50,
+                    child: Image.asset(
+                      widget.image,
+                      width: 56.w,
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/prefd.png',
+                      width: 47,
+                    ),
+                  ),
+                )
+              ],
+            )
+          : Container(
+              padding: EdgeInsets.all(20.r),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Image.asset(
+                widget.image,
+                width: 56.w,
+              ),
+            ),
     );
   }
 }

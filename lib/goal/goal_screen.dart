@@ -5,6 +5,7 @@ import 'package:budget_boss_143/goal/history_screen.dart';
 import 'package:budget_boss_143/goal/logic/model/goal_hive_model.dart';
 import 'package:budget_boss_143/goal/logic/repo/goal_repo.dart';
 import 'package:budget_boss_143/goal/widget/percent_widget.dart';
+import 'package:budget_boss_143/settings/budget_boss_predfb.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -85,22 +86,30 @@ class _GoalScreenState extends State<GoalScreen> {
                 : const SizedBox(),
             SizedBox(
               height: 600.h,
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: 24.r, vertical: 12.r),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  mainAxisExtent: 100,
-                ),
-                itemBuilder: (context, index) => GlWidget(
-                  image: listImages[index],
-                  setstt: (value) async {
-                    await getData();
-                  },
-                ),
-                itemCount: listImages.length,
+              child: FutureBuilder(
+                future: getBudgetBossPredfb(),
+                builder: (context, snapshot) {
+                  bool chekPre = snapshot.data ?? false;
+                  return GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 24.r, vertical: 12.r),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                      mainAxisExtent: 100,
+                    ),
+                    itemBuilder: (context, index) => GlWidget(
+                      image: listImages[index],
+                      setstt: (value) async {
+                        await getData();
+                      }, chek: index>5&&!chekPre,
+                    ),
+                    itemCount: listImages.length,
+                  );
+                },
               ),
             ),
           ],

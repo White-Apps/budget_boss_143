@@ -42,7 +42,7 @@ class _PremiumTiScreenBudgettState extends State<PremiumTiScreenBudgett> {
                         width: 160.w,
                         height: 160.h,
                         alignment: Alignment.bottomCenter,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),

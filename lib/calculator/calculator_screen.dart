@@ -2,8 +2,11 @@ import 'package:budget_boss_143/calculator/widget/add_calcas.dart';
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
 import 'package:budget_boss_143/finances/screens/your_income.dart';
+import 'package:budget_boss_143/settings/budget_boss_predfb.dart';
+import 'package:budget_boss_143/settings/prem_scre_buuger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CalculatorScreen extends StatefulWidget {
@@ -338,19 +341,56 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 25.r),
-                    child: BbMotion(
-                        onPressed: () async {
-                          await showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (BuildContext context) {
-                              return AddCalsdvsdvds();
+                    child: FutureBuilder(
+                      future: getBudgetBossPredfb(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (!snapshot.data!) {
+                            return BbMotion(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PremiumTiScreenBudgett(
+                                      isClose: true,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Stack(
+                                children: [
+                                  Image.asset('assets/images/fdf.png',
+                                      width: 24.w),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Image.asset(
+                                        'assets/images/hsbdvsd.png',
+                                        width: 16.w),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          return BbMotion(
+                            onPressed: () async {
+                              await showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (BuildContext context) {
+                                  return AddCalsdvsdvds();
+                                },
+                              );
+                              setState(() {});
                             },
+                            child: Image.asset('assets/images/fdf.png',
+                                width: 24.w),
                           );
-                          setState(() {});
-                        },
-                        child:
-                            Image.asset('assets/images/fdf.png', width: 24.w)),
+                        }
+                        return const SizedBox();
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -505,7 +545,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   FutureBuilder(
                       future: getColor2(),
                       builder: (context, snapshot) {
-                        int getColor2 = snapshot.data ?? 4294967295;
+                        int getColor2 = snapshot.data ?? Colors.white.value;
                         return Expanded(
                           child: Container(
                             alignment: Alignment.bottomRight,
@@ -531,7 +571,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       createButton('7'),
                       createButton('8'),
                       createButton('9'),
-                      createButton('AC'), // Шире обычной кнопки.
+                      createButton('AC'),
                     ],
                   ),
                   Row(
@@ -540,7 +580,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       createButton('4'),
                       createButton('5'),
                       createButton('6'),
-                      createButton('X'), // Умножение.
+                      createButton('X'),
                     ],
                   ),
                   Row(
@@ -549,33 +589,41 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       createButton('1'),
                       createButton('2'),
                       createButton('3'),
-                      createButton('÷'), // Деление.
+                      createButton('÷'),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Column(
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5.r),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          Column(
                             children: [
-                              createButton(','),
-                              createButton('0'),
-                              createButton('.'),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  createButton(','),
+                                  createButton('0'),
+                                  createButton('.'),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  createButton('='),
+                                  createButton('+'),
+                                  createButton('-'),
+                                ],
+                              ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              createButton('='),
-                              createButton('+'),
-                              createButton('-'),
-                            ],
-                          ),
+                          createButton('⌫', height: 160.h),
                         ],
                       ),
-                      createButton('⌫', height: 160.h),
-                    ],
+                    ),
                   ),
                 ],
               ),

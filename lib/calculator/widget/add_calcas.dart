@@ -633,7 +633,7 @@ class _AddCalsdvsdvdsState extends State<AddCalsdvsdvds> {
 
 Future<int> getColor1() async {
   final prefs = await SharedPreferences.getInstance();
-  return prefs.getInt('Color1') ?? 0;
+  return prefs.getInt('Color1') ?? 4278190080;
 }
 
 Future<void> setColor1(int color1) async {
@@ -643,7 +643,7 @@ Future<void> setColor1(int color1) async {
 
 Future<int> getColor2() async {
   final prefs = await SharedPreferences.getInstance();
-  return prefs.getInt('Color2') ?? 0;
+  return prefs.getInt('Color2') ?? Colors.white.value;
 }
 
 Future<void> setColor2(int color2) async {

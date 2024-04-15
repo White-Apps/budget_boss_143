@@ -7,6 +7,7 @@ import 'package:budget_boss_143/finances/screens/your_income.dart';
 import 'package:budget_boss_143/finances/widget/pie_chart_painter.dart';
 import 'package:budget_boss_143/finances/widget/show_modal_bot.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -136,6 +137,7 @@ class _FinancesScreenState extends State<FinancesScreen> {
                 ],
               ),
             ),
+            SizedBox(height: 10.h),
             BlocBuilder<GetFinancesCubit, GetFinancesState>(
               builder: (context, state) {
                 if (state is Loading) {
@@ -223,51 +225,54 @@ class _FinancesScreenState extends State<FinancesScreen> {
                         ),
                       ),
                       SizedBox(height: 24.h),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: grouped.entries.map((entry) {
-                            var categorySum = entry.value
-                                .fold(0.0, (sum, item) => sum + item.sum);
-                            var percentage = (categorySum / totalSum * 100)
-                                .toStringAsFixed(2);
-
-                            return Container(
-                              margin: EdgeInsets.only(
-                                right: 12.r,
-                                left: grouped.entries.first.key == entry.key
-                                    ? 24.r
-                                    : 0,
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.r, horizontal: 13.r),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24.r),
-                                color: Color(entry.value.first.color),
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    entry.key,
-                                    style: TextStyle(
-                                      fontSize: 16.h,
-                                      fontWeight: FontWeight.w300,
-                                      color: BBColors.white,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: grouped.entries.map((entry) {
+                              var categorySum = entry.value
+                                  .fold(0.0, (sum, item) => sum + item.sum);
+                              var percentage = (categorySum / totalSum * 100)
+                                  .toStringAsFixed(2);
+                        
+                              return Container(
+                                margin: EdgeInsets.only(
+                                  right: 12.r,
+                                  left: grouped.entries.first.key == entry.key
+                                      ? 24.r
+                                      : 0,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8.r, horizontal: 13.r),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24.r),
+                                  color: Color(entry.value.first.color),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      entry.key,
+                                      style: TextStyle(
+                                        fontSize: 16.h,
+                                        fontWeight: FontWeight.w300,
+                                        color: BBColors.white,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(width: 6.w),
-                                  Text(
-                                    '$percentage%',
-                                    style: TextStyle(
-                                      fontSize: 16.h,
-                                      fontWeight: FontWeight.w600,
-                                      color: BBColors.white,
+                                    SizedBox(width: 6.w),
+                                    Text(
+                                      '$percentage%',
+                                      style: TextStyle(
+                                        fontSize: 16.h,
+                                        fontWeight: FontWeight.w600,
+                                        color: BBColors.white,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
                         ),
                       ),
                       SizedBox(height: 24.h),
@@ -415,7 +420,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
       if (difference.inSeconds > 0) {
         if (mounted) {
           setState(() {
-            sobr = false;
+            sobr = true;
             secondsButton = difference.inSeconds;
           });
         }
@@ -423,7 +428,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
         if (mounted) {
           setState(() {
             secondsButton = 0;
-            sobr = true;
+            sobr = false;
           });
         }
       }
@@ -431,7 +436,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
       if (mounted) {
         setState(() {
           secondsButton = 0;
-          sobr = true;
+          sobr = false;
         });
       }
     }
@@ -477,7 +482,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
           int getTimeR = snapshot.data ?? 0;
           return BbMotion(
             onPressed: () async {
-              if (sobr == true) {
+              if (sobr == false) {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
@@ -562,7 +567,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
                           color: BBColors.white,
                         ),
                       ),
-                      sobr == true
+                      sobr == false
                           ? Image.asset(
                               'assets/images/bosd.png',
                               width: 12.w,

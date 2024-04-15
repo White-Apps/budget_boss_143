@@ -76,6 +76,7 @@ class _GoalScreenState extends State<GoalScreen> {
                     itemBuilder: (context, index) {
                       return PercentWidget(
                         model: listTarget[index],
+                        calich: listTarget.length,
                       );
                     },
                     separatorBuilder: (_, i) => SizedBox(height: 16.h),

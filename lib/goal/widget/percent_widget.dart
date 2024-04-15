@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:budget_boss_143/core/bb_colors.dart';
+import 'package:budget_boss_143/finances/screens/your_income.dart';
 import 'package:budget_boss_143/goal/logic/model/goal_hive_model.dart';
+import 'package:budget_boss_143/goal/logic/repo/goal_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class PercentWidget extends StatelessWidget {
+class PercentWidget extends StatefulWidget {
   const PercentWidget({
     super.key,
     required this.model,
@@ -12,10 +16,48 @@ class PercentWidget extends StatelessWidget {
   final GoalHiveModel model;
 
   @override
+  State<PercentWidget> createState() => _PercentWidgetState();
+}
+
+class _PercentWidgetState extends State<PercentWidget> {
+  int amaunt = 0;
+  Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(const Duration(days: 28), (_) => checkDate());
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  bool isLastDayOfMonth(DateTime dateTime) {
+    return dateTime.day == 30;
+  }
+
+  void checkDate() {
+    DateTime now = DateTime.now();
+    if (isLastDayOfMonth(now)) {
+      getAmunt();
+    }
+  }
+
+  getAmunt() async {
+    double amn = await getIncome();
+    amaunt = amn.toInt();
+    GoalRepoImpl().updateGoal(widget.model.id, widget.model.amaunt + amaunt);
+    await setIncome(0);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // GoalRepoImpl().updateGoal(model.id, model.amaunt + 50);
         Container(
           padding: EdgeInsets.all(20.r),
           width: MediaQuery.of(context).size.width,
@@ -26,7 +68,7 @@ class PercentWidget extends StatelessWidget {
           child: Row(
             children: [
               Image.asset(
-                model.image,
+                widget.model.image,
                 width: 56.w,
               ),
               SizedBox(width: 20.w),
@@ -37,19 +79,19 @@ class PercentWidget extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${model.amaunt}',
+                          '${widget.model.amaunt}',
                           style: TextStyle(
                             fontSize: 16.h,
                             fontWeight: FontWeight.w700,
-                            color: model.amaunt == 0
+                            color: widget.model.amaunt == 0
                                 ? BBColors.black
-                                : model.amaunt >= model.target
+                                : widget.model.amaunt >= widget.model.target
                                     ? BBColors.green
                                     : BBColors.red,
                           ),
                         ),
                         Text(
-                          '/${model.target}',
+                          '/${widget.model.target}',
                           style: TextStyle(
                             fontSize: 16.h,
                             fontWeight: FontWeight.w700,
@@ -65,9 +107,11 @@ class PercentWidget extends StatelessWidget {
                       animation: true,
                       lineHeight: 12,
                       animationDuration: 1500,
-                      percent: model.amaunt >= model.target
+                      percent: widget.model.amaunt >= widget.model.target
                           ? 1
-                          : model.amaunt * 1 / model.target.toDouble(),
+                          : widget.model.amaunt *
+                              1 /
+                              widget.model.target.toDouble(),
                       linearGradient: const LinearGradient(
                         colors: [
                           Color(0xffD688F8),
@@ -81,11 +125,10 @@ class PercentWidget extends StatelessWidget {
             ],
           ),
         ),
-
         Positioned(
           top: 12.h,
           right: 12.w,
-          child: model.amaunt >= model.target
+          child: widget.model.amaunt >= widget.model.target
               ? Image.asset(
                   'assets/icons/hsIcon.png',
                   width: 24.w,

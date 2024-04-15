@@ -46,11 +46,11 @@ class _SplashScreenBuudgetState extends State<SplashScreenBuudget> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const 
-              // TiOnbordingBudgetBoss(),
-              BbBarDown(
-                  indexScr: 0,
-                ),
+              builder: (context) => const
+                  // TiOnbordingBudgetBoss(),
+                  BbBarDown(
+                indexScr: 0,
+              ),
             ),
           );
           prefs.setDouble('njjjdkvsdsd', 71836254);
@@ -68,12 +68,10 @@ class _SplashScreenBuudgetState extends State<SplashScreenBuudget> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => const 
-                // TiOnbordingBudgetBoss()
-                BbBarDown(
-                  indexScr: 0,
-                ),
-                ),
+              builder: (context) => const BbBarDown(
+                indexScr: 0,
+              ),
+            ),
           );
         }
       },

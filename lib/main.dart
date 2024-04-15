@@ -33,7 +33,7 @@ class BBApp extends StatelessWidget {
           title: 'Budget Boss',
           home: const SplashScreenBuudget(),
           theme: ThemeData(
-            fontFamily: 'SFProDisplay',
+            fontFamily: 'Inter',
             splashColor: Colors.transparent,
             splashFactory: NoSplash.splashFactory,
             highlightColor: Colors.transparent,

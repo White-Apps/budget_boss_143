@@ -592,37 +592,33 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       createButton('÷'),
                     ],
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.r),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  createButton(','),
-                                  createButton('0'),
-                                  createButton('.'),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  createButton('='),
-                                  createButton('+'),
-                                  createButton('-'),
-                                ],
-                              ),
-                            ],
-                          ),
-                          createButton('⌫', height: 160.h),
-                        ],
-                      ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5.r),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                createButton(','),
+                                createButton('0'),
+                                createButton('.'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                createButton('='),
+                                createButton('+'),
+                                createButton('-'),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Expanded(child: createButton('⌫', height: 160.h)),
+                      ],
                     ),
                   ),
                 ],

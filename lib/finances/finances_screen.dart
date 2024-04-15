@@ -235,7 +235,7 @@ class _FinancesScreenState extends State<FinancesScreen> {
                                   .fold(0.0, (sum, item) => sum + item.sum);
                               var percentage = (categorySum / totalSum * 100)
                                   .toStringAsFixed(2);
-                        
+
                               return Container(
                                 margin: EdgeInsets.only(
                                   right: 12.r,
@@ -409,6 +409,7 @@ class TimerFinsav extends StatefulWidget {
 class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
   bool sobr = false;
   int secondsButton = 0;
+  bool showImage = false;
 
   treeTimer(int days) async {
     final prefs = await SharedPreferences.getInstance();
@@ -417,18 +418,28 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
           DateTime.parse(prefs.getString('LastTreeUpdate')!);
       final targetDateTime = lastUpdateDateTime.add(Duration(days: days));
       final difference = targetDateTime.difference(DateTime.now());
-      if (difference.inSeconds > 0) {
-        if (mounted) {
+
+      if (mounted) {
+        if (difference.inSeconds > 0) {
           setState(() {
-            sobr = true;
+            sobr = false;
             secondsButton = difference.inSeconds;
+            showImage = false;
           });
-        }
-      } else {
-        if (mounted) {
+          Future.delayed(Duration(seconds: difference.inSeconds)).then((_) {
+            if (mounted) {
+              setState(() {
+                sobr = true;
+                secondsButton = 0;
+                showImage = true;
+              });
+            }
+          });
+        } else {
           setState(() {
             secondsButton = 0;
-            sobr = false;
+            sobr = true;
+            showImage = true;
           });
         }
       }
@@ -437,6 +448,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
         setState(() {
           secondsButton = 0;
           sobr = false;
+          showImage = false;
         });
       }
     }
@@ -446,6 +458,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       fetchTimeRAndStartTimer();
     });
@@ -458,7 +471,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
   }
 
   fetchTimeRAndStartTimer() async {
-    final timeR = await getTimeR(); // Ensure this function returns an integer
+    final timeR = await getTimeR(); 
     int days;
     if (timeR == 1) {
       days = 1;
@@ -467,7 +480,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
     } else if (timeR == 30) {
       days = 30;
     } else {
-      days = 0; // Default case or error handling
+      days = 0;
     }
     treeTimer(days);
   }
@@ -482,7 +495,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
           int getTimeR = snapshot.data ?? 0;
           return BbMotion(
             onPressed: () async {
-              if (sobr == false) {
+              if (sobr == true) {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
@@ -567,7 +580,7 @@ class _TimerFinsavState extends State<TimerFinsav> with WidgetsBindingObserver {
                           color: BBColors.white,
                         ),
                       ),
-                      sobr == false
+                      sobr && showImage
                           ? Image.asset(
                               'assets/images/bosd.png',
                               width: 12.w,

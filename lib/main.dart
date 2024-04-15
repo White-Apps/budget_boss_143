@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:apphud/apphud.dart';
+
+import 'core/url_wb.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +18,7 @@ void main() async {
   Hive.registerAdapter(FinancesHiveModelAdapter());
   Hive.registerAdapter(GoalHiveModelAdapter());
   runApp(const BBApp());
+  await Apphud.start(apiKey: UrlWb.aph);
 }
 
 class BBApp extends StatelessWidget {

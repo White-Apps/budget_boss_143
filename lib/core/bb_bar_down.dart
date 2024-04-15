@@ -12,10 +12,7 @@ class BbBarDownState extends State<BbBarDown> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: isActive,
-        children: _pages,
-      ),
+      body: _pages[isActive],
       bottomNavigationBar: Container(
         padding: EdgeInsets.only(top: 16.r, bottom: 36.r),
         decoration: const BoxDecoration(

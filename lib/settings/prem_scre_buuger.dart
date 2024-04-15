@@ -1,7 +1,9 @@
+import 'package:apphud/apphud.dart';
 import 'package:budget_boss_143/core/bb_bar_down.dart';
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
 import 'package:budget_boss_143/onbording/widget/rest_wid_svddsdsdi.dart';
+import 'package:budget_boss_143/settings/budget_boss_predfb.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -186,31 +188,31 @@ class _PremiumTiScreenBudgettState extends State<PremiumTiScreenBudgett> {
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: BbMotion(
               onPressed: () async {
-                // setState(() {
-                //   vsddbdbsd = true;
-                // });
-                // final apphudPaywalls = await Apphud.paywalls();
-                // // print(apphudPaywalls?.paywalls.first.products?.first);
-                // await Apphud.purchase(
-                //   product: apphudPaywalls?.paywalls.first.products?.first,
-                // ).whenComplete(
-                //   () async {
-                //     if (await Apphud.hasPremiumAccess() ||
-                //         await Apphud.hasActiveSubscription()) {
-                //       await setTennisIqPremsid();
-                //       Navigator.pushAndRemoveUntil(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (_) => const BbBarDown(),
-                //         ),
-                //         (route) => false,
-                //       );
-                //     }
-                //   },
-                // );
-                // setState(() {
-                //   vsddbdbsd = false;
-                // });
+                setState(() {
+                  vsddbdbsd = true;
+                });
+                final apphudPaywalls = await Apphud.paywalls();
+                print(apphudPaywalls?.paywalls.first.products?.first);
+                await Apphud.purchase(
+                  product: apphudPaywalls?.paywalls.first.products?.first,
+                ).whenComplete(
+                  () async {
+                    if (await Apphud.hasPremiumAccess() ||
+                        await Apphud.hasActiveSubscription()) {
+                      await setBudgetBossPredfb();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const BbBarDown(),
+                        ),
+                        (route) => false,
+                      );
+                    }
+                  },
+                );
+                setState(() {
+                  vsddbdbsd = false;
+                });
               },
               child: Container(
                 width: double.infinity,

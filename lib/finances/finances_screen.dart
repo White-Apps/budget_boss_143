@@ -41,21 +41,29 @@ class _FinancesScreenState extends State<FinancesScreen> {
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BbMotion(
-                onPressed: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Expense(),
-                    ),
-                  );
-                  setState(() {});
-                  context.read<GetFinancesCubit>().getAllFinancesList();
-                },
-                child: Image.asset('assets/images/ttttim.png', width: 24.w)),
+            Padding(
+              padding: EdgeInsets.only(left: 25.r),
+              child: BbMotion(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Expense(),
+                      ),
+                    );
+                    setState(() {});
+                    context.read<GetFinancesCubit>().getAllFinancesList();
+                  },
+                  child: Image.asset('assets/images/ttttim.png', width: 24.w)),
+            ),
           ],
         ),
-        actions: [TimerFinsav()],
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 15.r),
+            child: const TimerFinsav(),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

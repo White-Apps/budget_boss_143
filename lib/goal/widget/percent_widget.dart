@@ -12,8 +12,10 @@ class PercentWidget extends StatefulWidget {
   const PercentWidget({
     super.key,
     required this.model,
+    required this.calich,
   });
   final GoalHiveModel model;
+  final int calich;
 
   @override
   State<PercentWidget> createState() => _PercentWidgetState();
@@ -49,6 +51,7 @@ class _PercentWidgetState extends State<PercentWidget> {
   getAmunt() async {
     double amn = await getIncome();
     amaunt = amn.toInt();
+    amaunt = amaunt ~/ widget.calich;
     GoalRepoImpl().updateGoal(widget.model.id, widget.model.amaunt + amaunt);
     await setIncome(0);
     setState(() {});

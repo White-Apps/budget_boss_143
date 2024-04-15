@@ -46,17 +46,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ),
       ),
       body: listHistory.isNotEmpty
-          ? ListView.separated(
-              padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 24.r),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return HistoryWidget(
-                  model: listHistory[index],
-                );
-              },
-              separatorBuilder: (_, i) => SizedBox(height: 16.h),
-              itemCount: listHistory.length,
+          ? SafeArea(
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 24.r),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return HistoryWidget(
+                    model: listHistory[index],
+                  );
+                },
+                separatorBuilder: (_, i) => SizedBox(height: 16.h),
+                itemCount: listHistory.length,
+              ),
             )
           : Padding(
               padding: const EdgeInsets.all(24),

@@ -85,7 +85,7 @@ class _GoalScreenState extends State<GoalScreen> {
                   )
                 : const SizedBox(),
             SizedBox(
-              height: 600.h,
+              height: 700.h,
               child: FutureBuilder(
                 future: getBudgetBossPredfb(),
                 builder: (context, snapshot) {
@@ -105,7 +105,8 @@ class _GoalScreenState extends State<GoalScreen> {
                       image: listImages[index],
                       setstt: (value) async {
                         await getData();
-                      }, chek: index>5&&!chekPre,
+                      },
+                      chek: index > 5 && !chekPre,
                     ),
                     itemCount: listImages.length,
                   );

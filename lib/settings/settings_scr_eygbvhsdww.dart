@@ -5,12 +5,11 @@ import 'package:budget_boss_143/core/url_wb.dart';
 import 'package:budget_boss_143/settings/budget_boss_predfb.dart';
 import 'package:budget_boss_143/settings/prem_scre_buuger.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class SettingsScrEygbvhsdww extends StatelessWidget {
+  const SettingsScrEygbvhsdww({super.key});
 
   @override
   Widget build(BuildContext context) {

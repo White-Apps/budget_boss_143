@@ -3,7 +3,7 @@ import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
 import 'package:budget_boss_143/finances/finances_screen.dart';
 import 'package:budget_boss_143/goal/goal_screen.dart';
-import 'package:budget_boss_143/settings/settings_screen.dart';
+import 'package:budget_boss_143/settings/settings_scr_eygbvhsdww.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -64,7 +64,7 @@ class BbBarDownState extends State<BbBarDown> {
     const FinancesScreen(),
     const GoalScreen(),
     const CalculatorScreen(),
-    const SettingsScreen(),
+    const SettingsScrEygbvhsdww(),
   ];
 }
 

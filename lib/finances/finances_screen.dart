@@ -175,7 +175,7 @@ class _FinancesScreenState extends State<FinancesScreen> {
                             model.isNotEmpty
                                 ? CustomPaint(
                                     size: Size(360.w, 360.h),
-                                    painter: PieChartPainter(
+                                    painter: PieChartPainterUjfknvsdjvd(
                                         values: percentages, colors: colors),
                                   )
                                 : Container(

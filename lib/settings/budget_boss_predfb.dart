@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<bool> getBudgetBossPredfb() async {
-  final preferences = await SharedPreferences.getInstance();
-  return preferences.getBool('vsdvseewewe') ?? false;
+  final vdssdvdssefewe = await SharedPreferences.getInstance();
+  return vdssdvdssefewe.getBool('vsdvseewewe') ?? false;
 }
 
 Future<void> setBudgetBossPredfb() async {

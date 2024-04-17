@@ -1,7 +1,7 @@
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
 import 'package:budget_boss_143/goal/widget/gl_widget.dart';
-import 'package:budget_boss_143/goal/history_screen.dart';
+import 'package:budget_boss_143/goal/history_screen_jdsnbvaks.dart';
 import 'package:budget_boss_143/goal/logic/model/goal_hive_model.dart';
 import 'package:budget_boss_143/goal/logic/repo/goal_repo.dart';
 import 'package:budget_boss_143/goal/widget/percent_widget.dart';
@@ -53,7 +53,7 @@ class _GoalScreenState extends State<GoalScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const HistoryScreen(),
+                    builder: (context) => const HistoryScreenHdsnbvaks(),
                   ),
                 );
               },

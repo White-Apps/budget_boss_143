@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+class HistoryScreenHdsnbvaks extends StatefulWidget {
+  const HistoryScreenHdsnbvaks({super.key});
 
   @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
+  State<HistoryScreenHdsnbvaks> createState() => _HistoryScreenHdsnbvaksState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _HistoryScreenHdsnbvaksState extends State<HistoryScreenHdsnbvaks> {
   List<GoalHiveModel> listHistory = [];
 
   @override

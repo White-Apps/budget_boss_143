@@ -116,10 +116,13 @@ class SettingsScrEygbvhsdww extends StatelessWidget {
             SizedBox(height: 16.h),
             BbMotion(
               onPressed: () {
-                MaterialPageRoute(
-                  builder: (context) => const WebBByWere(
-                    title: 'Support',
-                    url: UrlWb.spp,
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WebBByWere(
+                      title: 'Support',
+                      url: UrlWb.spp,
+                    ),
                   ),
                 );
               },

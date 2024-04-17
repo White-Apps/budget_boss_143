@@ -2,6 +2,8 @@ import 'package:apphud/apphud.dart';
 import 'package:budget_boss_143/core/bb_bar_down.dart';
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
+import 'package:budget_boss_143/core/bb_wb.dart';
+import 'package:budget_boss_143/core/url_wb.dart';
 import 'package:budget_boss_143/onbording/widget/rest_wid_svddsdsdi.dart';
 import 'package:budget_boss_143/settings/budget_boss_predfb.dart';
 import 'package:flutter/cupertino.dart';
@@ -192,7 +194,7 @@ class _PremiumTiScreenBudgettState extends State<PremiumTiScreenBudgett> {
                   vsddbdbsd = true;
                 });
                 final apphudPaywalls = await Apphud.paywalls();
-                print(apphudPaywalls?.paywalls.first.products?.first);
+                // print(apphudPaywalls?.paywalls.first.products?.first);
                 await Apphud.purchase(
                   product: apphudPaywalls?.paywalls.first.products?.first,
                 ).whenComplete(
@@ -241,9 +243,31 @@ class _PremiumTiScreenBudgettState extends State<PremiumTiScreenBudgett> {
           ),
           SizedBox(height: 30.h),
           RestButTiUIqwq(
-            onPressPriPol: () {},
-            onPressRest: () {},
-            onPressTerOfSer: () {},
+            onPressPriPol: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WebBByWere(
+                    title: 'Terms of Service',
+                    url: UrlWb.of,
+                  ),
+                ),
+              );
+            },
+            onPressRest: () {
+              restoreBudgetBossPredfb(context);
+            },
+            onPressTerOfSer: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WebBByWere(
+                    title: 'Privacy Policy',
+                    url: UrlWb.pri,
+                  ),
+                ),
+              );
+            },
           ),
           const Spacer(),
         ],

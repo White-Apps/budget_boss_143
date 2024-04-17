@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebBB extends StatefulWidget {
+class WebBByWere extends StatefulWidget {
   final String url;
   final String title;
 
-  const WebBB({
+  const WebBByWere({
     super.key,
     required this.title,
     required this.url,
   });
 
   @override
-  State<WebBB> createState() => _WebPlinkState();
+  State<WebBByWere> createState() => _WebPlinkState();
 }
 
-class _WebPlinkState extends State<WebBB> {
+class _WebPlinkState extends State<WebBByWere> {
   bool isLoading = true;
   late WebViewController controller;
 

@@ -3,6 +3,7 @@ import 'package:budget_boss_143/core/bb_wb.dart';
 import 'package:budget_boss_143/core/url_wb.dart';
 import 'package:budget_boss_143/onbording/widget/onb_it_onddd.dart';
 import 'package:budget_boss_143/onbording/widget/rest_wid_svddsdsdi.dart';
+import 'package:budget_boss_143/settings/budget_boss_predfb.dart';
 import 'package:budget_boss_143/settings/prem_scre_buuger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,7 +105,7 @@ class _TiOnbordingBudgetBossState extends State<TiOnbordingBudgetBoss> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const WebBB(
+                  builder: (context) => const WebBByWere(
                     title: 'Terms of Service',
                     url: UrlWb.of,
                   ),
@@ -112,13 +113,13 @@ class _TiOnbordingBudgetBossState extends State<TiOnbordingBudgetBoss> {
               );
             },
             onPressRest: () {
-              // restoreTennisIqPremsid(context);
+              restoreBudgetBossPredfb(context);
             },
             onPressPriPol: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const WebBB(
+                  builder: (context) => const WebBByWere(
                     title: 'Privacy Policy',
                     url: UrlWb.pri,
                   ),

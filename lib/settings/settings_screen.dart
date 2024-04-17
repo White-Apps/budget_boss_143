@@ -1,10 +1,13 @@
 import 'package:budget_boss_143/core/bb_colors.dart';
 import 'package:budget_boss_143/core/bb_motion.dart';
+import 'package:budget_boss_143/core/bb_wb.dart';
+import 'package:budget_boss_143/core/url_wb.dart';
 import 'package:budget_boss_143/settings/budget_boss_predfb.dart';
 import 'package:budget_boss_143/settings/prem_scre_buuger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -27,7 +30,17 @@ class SettingsScreen extends StatelessWidget {
           children: [
             SizedBox(height: 24.h),
             BbMotion(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WebBByWere(
+                      title: 'Privacy Policy',
+                      url: UrlWb.pri,
+                    ),
+                  ),
+                );
+              },
               child: Container(
                 width: double.infinity,
                 height: 60.h,
@@ -60,7 +73,17 @@ class SettingsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             BbMotion(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WebBByWere(
+                      title: 'Terms of Use',
+                      url: UrlWb.of,
+                    ),
+                  ),
+                );
+              },
               child: Container(
                 width: double.infinity,
                 height: 60.h,
@@ -93,7 +116,14 @@ class SettingsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             BbMotion(
-              onPressed: () {},
+              onPressed: () {
+                MaterialPageRoute(
+                  builder: (context) => const WebBByWere(
+                    title: 'Support',
+                    url: UrlWb.spp,
+                  ),
+                );
+              },
               child: Container(
                 width: double.infinity,
                 height: 60.h,
@@ -126,7 +156,10 @@ class SettingsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             BbMotion(
-              onPressed: () {},
+              onPressed: () {
+                Share.share(
+                    'https://apps.apple.com/us/app/budgetboss-expenses-finances/id6498550611');
+              },
               child: Container(
                 width: double.infinity,
                 height: 60.h,
